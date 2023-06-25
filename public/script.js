@@ -12,17 +12,18 @@ let cart = [];
 
 // Function to render the items list
 function renderItems() {
-  const itemList = document.getElementById('item-list');
-  itemList.innerHTML = '';
-
-  items.forEach(item => {
-    console.log(item)
-    const li = document.createElement('li');
-    li.textContent = `${item.name} - $${item.price}`;
-    itemList.appendChild(li);
-  });
-}
-
+    const itemList = document.getElementById('item-list');
+    itemList.innerHTML = '';
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} - $${item.price}`;
+      const addButton = document.createElement('button');
+      addButton.textContent = 'Add to Cart';
+      addButton.addEventListener('click', () => addToCart(item));
+      li.appendChild(addButton);
+      itemList.appendChild(li);
+    });
+  }
 // Function to render the cart
 function renderCart() {
   const cartList = document.getElementById('cart-list');
@@ -30,7 +31,7 @@ function renderCart() {
 
   cart.forEach(item => {
     const li = document.createElement('li');
-    li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+    li.textContent = `${item.name} - $${item.price}`;
     cartList.appendChild(li);
   });
 }
@@ -85,6 +86,11 @@ function createItem(item) {
     .catch(error => {
       console.error('Error creating item:', error);
     });
+}
+
+function addToCart(item) {
+    cart.push(item);
+    renderCart();
 }
 
 // Function to checkout the cart via API
