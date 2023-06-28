@@ -1,6 +1,7 @@
 // Store items and cart
 let items = [{id:"1",name: "Hello", price:"34"}];
 let cart = [];
+let total = 0;
 
 // Item class
 // class Item {
@@ -28,12 +29,17 @@ function renderItems() {
 function renderCart() {
   const cartList = document.getElementById('cart-list');
   cartList.innerHTML = '';
-
+  total = 0;
   cart.forEach(item => {
     const li = document.createElement('li');
     li.textContent = `${item.name} - $${item.price}`;
+    total += int(item.price);
     cartList.appendChild(li);
   });
+  const carttotal = document.getElementById("cart-total");
+  carttotal.innerHTML = total;
+  
+
 }
 
 // Function to handle form submission

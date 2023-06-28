@@ -1,9 +1,13 @@
 const express = require('express');
 const path = require('path');
 const mysql = require('mysql');
+require('dotenv').config()
 
 const app = express();
-const port = 3000;
+const port = process.env.MYSQL_PORT;
+const user = process.env.MYSQL_USER;
+const password = process.env.MYSQL_PASSWORD;
+const database = process.env.MYSQL_DATABASE;
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -15,10 +19,10 @@ app.get('/', (req, res) => {
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    port: 1433,
-    user: 'host1',
-    password: 'host1',
-    database: 'DASHBOARD',
+    port,
+    user,
+    password,
+    database,
   });
   
   // Connect to MySQL
